@@ -5,19 +5,6 @@ import { nanoid } from 'nanoid'
 
 function App() {
 
-  function generateDiceArray(){
-    const array=[]
-    for(let i=0; i < 10; i++){
-      array.push({
-        number: Math.ceil(Math.random() * 6),
-        isSaved: false,
-        id: nanoid()
-      }) 
-    }
-
-    return array
-  }
-
   const [numsForDice, setNumsForDice ] = React.useState(generateDiceArray())
 
   const dieElements = numsForDice.map( num =>( 
@@ -30,16 +17,30 @@ function App() {
      />
   ))
 
-  //function for roll button
-  // must set new numsForDice
+  //UPDATED: function for roll button
+  // must set new numsForDice except dice that are saved/pressed must stay
   function rollDice(){
-    setNumsForDice(generateDiceArray())
+    setNumsForDice( prev => prev.map( thisDie => {
+      return thisDie.isSaved ? thisDie : generateDie_OneObj()
+    }))
   }
 
-  //save die key/id if it is pressed -> change bool isSaved = true || or the opposite
-  // !!!this is how to update a state object
-        // set -> map through old data
-        // -> if found update else just return that element
+  function generateDiceArray(){
+    const array=[]
+    for(let i=0; i < 10; i++){
+      array.push(generateDie_OneObj())
+    }
+    return array
+  }
+  
+  function generateDie_OneObj(){
+    return {
+      number: Math.ceil(Math.random() * 6),
+      isSaved: false,
+      id: nanoid()
+    }
+  }
+  
   function saveTheDie(id){
     setNumsForDice(prev => prev.map(thisDie => {
       return (id !== thisDie.id ? 
