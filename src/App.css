@@ -1,0 +1,77 @@
+/* colors major to minor
+F1DDBF
+525E75
+78938A
+92BA92
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  display: grid;
+  grid-template: 20px auto / 30px 1fr 30px;
+  grid-gap: 20px;
+  background-color: #525E75;
+}
+
+body > * {
+  grid-column:2;
+  grid-row: 2;
+}
+
+main{
+  background-color:  #F1DDBF;
+  padding: 50px;
+  max-width: 1000px;
+  margin: 80px auto;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+} 
+
+.dice{
+  display: grid;
+  grid-template: auto auto / repeat(5, 1fr);
+  grid-gap: 100px;
+
+}
+
+.die-number{
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background-color: white;
+
+  height: 90px;
+  width: 90px;
+  font-size: 2rem;
+  font-family: 'Karla';
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+
+}
+
+main > button {
+  margin: 80px auto auto;
+  padding: 20px;
+  cursor: pointer;
+  font-family: 'Karla';
+  font-size: large;
+  border-radius: 10px;
+  border: none;
+  background-color: #78938A;
+  color: white;
+}
+
+main > button:hover {
+  text-shadow: 0 0 2em rgb(255, 255, 255);
+  color: #525E75;
+}
+main > button:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
