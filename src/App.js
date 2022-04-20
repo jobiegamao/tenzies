@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
 import Die from './components/Die';
-
+import { nanoid } from 'nanoid'
 
 function App() {
 
-  //create 10 dice with 1-6 random number,
-  //make an array for the 10 numbers
-  //put it in useState Array
-  //then call component thru mapping
-
   function generateDiceArray(){
+    //change array to obj array to include boolean and id
     const array=[]
     for(let i=0; i < 10; i++){
-      array.push(Math.ceil(Math.random() * 6)) // random 1-6
+      array.push({
+        number: Math.ceil(Math.random() * 6),
+        isHeld: true,
+        id: nanoid()
+      }) 
     }
 
     return array
@@ -21,9 +21,13 @@ function App() {
 
   const [numsForDice, setNumsForDice ] = React.useState(generateDiceArray())
 
-  const dieElements = numsForDice.map( num => {
-    return <Die number={num} />
-  })
+  const dieElements = numsForDice.map( num =>( 
+     <Die 
+        number={num.number} 
+        isHeld={num.isHeld}
+        key = {num.id}
+     />
+  ))
 
   //function for roll button
   // must set new numsForDice
