@@ -6,12 +6,11 @@ import { nanoid } from 'nanoid'
 function App() {
 
   function generateDiceArray(){
-    //change array to obj array to include boolean and id
     const array=[]
     for(let i=0; i < 10; i++){
       array.push({
         number: Math.ceil(Math.random() * 6),
-        isHeld: true,
+        isSaved: false,
         id: nanoid()
       }) 
     }
@@ -24,16 +23,29 @@ function App() {
   const dieElements = numsForDice.map( num =>( 
      <Die 
         number={num.number} 
-        isHeld={num.isHeld}
+        isSaved={num.isSaved}
         key = {num.id}
+        id = {num.id}
+        saveTheDie = {saveTheDie}
      />
   ))
 
   //function for roll button
   // must set new numsForDice
-
   function rollDice(){
     setNumsForDice(generateDiceArray())
+  }
+
+  //save die key/id if it is pressed -> change bool isSaved = true || or the opposite
+  // !!!this is how to update a state object
+        // set -> map through old data
+        // -> if found update else just return that element
+  function saveTheDie(id){
+    setNumsForDice(prev => prev.map(thisDie => {
+      return (id !== thisDie.id ? 
+              thisDie : {...thisDie, isSaved: !thisDie.isSaved }
+             )
+      }))
   }
 
   return (
